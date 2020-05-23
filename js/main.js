@@ -27,9 +27,6 @@ $(function () {
         }
     }
 
-
-
-
     function image() {
         let menu_btn = $('.selected');
         for (let x = 0; x < image_portfolio.length; x++) {
@@ -64,9 +61,6 @@ $(function () {
         }
     }
 
-
-
-
     $('.portfolio__header--btn').on('click', function () {
         if (!$(this).hasClass('selected')) {
             setTimeout(function () {
@@ -81,12 +75,6 @@ $(function () {
             $('.portfolio__header-menu').removeClass('active');
             $('.portfolio__select--arrow').removeClass('active');
 
-            /* let scrollName = $('.portfolio'),
-                scrollElem = $(scrollName),
-                scrollTop = scrollElem.offset().top;
-            $('html, body').animate({
-                scrollTop: scrollTop + 100
-            }, 500); */
             if ($(this).data('section-name') == 'all') {
                 setTimeout(function () {
                     imageAll()
@@ -124,7 +112,7 @@ $(function () {
         gallery: {
             enabled: false,
             navigateByImgClick: false,
-            preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+            preload: [0, 1]
         }
 
     });
@@ -155,24 +143,18 @@ $(function () {
             lastScrollTop = st;
         });
     
-        
-    
- 
-  
-
-
 
     $('.inline-popups').magnificPopup({
         delegate: 'a',
         removalDelay: 500,
         fixedContentPos: true,
-        closeOnBgClick: false, //delay removal by X to allow out-animation
+        closeOnBgClick: false,
         callbacks: {
             beforeOpen: function () {
                 this.st.mainClass = this.st.el.attr('data-effect');
             }
         },
-        midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+        midClick: true
     });
     $('a.hinge').magnificPopup({
         mainClass: 'mfp-with-fade',
@@ -188,11 +170,6 @@ $(function () {
         },
         midClick: false
     });
-
-
-
-
-
 
     let id = $('.expertise__line').find('span').length;
 
@@ -261,17 +238,18 @@ $(function () {
         }    
     }
     });
-
-
+    $('.egg__title span').draggable();
+    let timer = 0;
     $('.touch__btn').on('click', function () {
         $('.touch__error > p').html('Fill in all the fields!');
         $('.touch__error').css('color', 'red');
         let field = $('.field');
         let x = false;
+        
         for (let i = 0; i < field.length; i++) {
             if (!field[i].value) {
                 for (let j = 0; j < field.length; j++) {
-                    if (!field[j].value) {
+                    if (!field[j].value) {    
                         $(field[j]).css('border-bottom', '2px solid red');
                     }
                     else if (field[j].value) {
@@ -288,7 +266,12 @@ $(function () {
             }
             else if (field[i].value) {
                 $(field[i]).css('border-bottom', '2px solid #000');
-
+                if(field[0].value == 'luteet'){
+                    $('.site').css('display', 'none');
+                    $('body').css('background-color', '#000');
+                    $('.egg').css('display', 'block');
+                }
+                 
                 x = true;
             }
         }
@@ -302,9 +285,6 @@ $(function () {
         }
     });
 
-
-
-
     $('.portfolio__footer--btn').on('click', function () {
         let scrollName = $('#section-3'),
             scrollElem = $(scrollName),
@@ -317,7 +297,6 @@ $(function () {
         }
 
     });
-
 
     $('.header__menu--btn, .header__mouse').on('click', function () {
         let scrollName = $(this).attr('data-scroll'),
@@ -345,8 +324,6 @@ $(function () {
         }, 1500);
 
     });
-
-
 
     let input_buy = $('.plans__field');
     for (let input = 0; input < input_buy.length; input++) {
@@ -380,20 +357,6 @@ $(function () {
         $(this).attr('placeholder', placeholder);
     });
 
-   
-    $('.video').hover(function() {
-            $('.overlay').css( 'transform', 'scale(1.3) translate(-40%, -40%) rotate(90deg)' );
-            }, function(){
-            $('.overlay').css( 'transform', 'translate(-50%, -50%) rotate(90deg)' );
-      });
-
-      $('.close').on('click', function () {
-          $('.controls').trigger('pause'); 
-            closePopup();
-
-    });
-    
-    
     new WOW().init();
 
 });
