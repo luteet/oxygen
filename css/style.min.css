@@ -307,6 +307,34 @@ a {
   color: #fcbb08;
 }
 
+.egg {
+  display: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 72px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 60px;
+  width: 100%;
+}
+
+.egg * {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.egg__timer {
+  padding: 30px 0;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 html {
