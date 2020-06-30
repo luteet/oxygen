@@ -117,31 +117,108 @@ $(function () {
 
     });
 
-    $(window).scroll(function (event) {
-        let scrollName = $('.about'),
-            scrollElem = $(scrollName),
-            scrollTop = scrollElem.offset().top;
-        let st = $(this).scrollTop();
-        if(st > scrollTop) {
-            
-        };
-    });
     
-        
-        let header__menu = $('.header__top');
-        let lastScrollTop;
-        let st;
-         $(window).scroll(function (event) {
-            var st = $(this).scrollTop();
-            if (st > lastScrollTop) {
-                $(header__menu).css('transform', 'translateY(-100%)');
-                $(header__menu).css('box-shadow', 'none');
-            } else if (st < lastScrollTop || st == 0) {
-                $(header__menu).css('transform', 'translateY(0%)');
-                $(header__menu).css('box-shadow', '0px 7px 19px -8px rgba(0,0,0,0.2)');
+    
+    
+    function headerHider(settings) {
+
+            if (settings == undefined) {
+                return false;
             }
-            lastScrollTop = st;
+
+            if(settings.elemName == undefined) {
+                return false;
+            }
+
+            if(settings.distance == undefined) {
+                settings.distance = 500;
+            }
+
+            if(settings.fade == undefined) {
+                settings.fade = false;
+            }
+            
+            if(settings.speedAnim == undefined) {
+                settings.speedAnim = 200;
+            }
+
+            let header = settings.elemName,
+            scrollPrev = 0,
+            scrollDown = 0,
+            scrollDownCheck = false,
+            scrollTop = 0,
+            scrollTopCheck = false,
+            scrollToTop = false,
+            scrollToDown = false;
+        $(window).scroll(function() {
+            let scrolled = $(window).scrollTop();
+
+            if(scrolled == 0) {
+                if(settings.classCheck == undefined) {
+                    if(settings.fade == true) {
+                        $(header).fadeIn(settings.speedAnim);
+                    }
+                    else if(settings.fade == false) {
+                        $(header).slideDown(settings.speedAnim);
+                    }
+                }
+                else {
+                    $(header).removeClass(setting.classCheck);
+                }
+                scrollTopCheck = true;
+            }
+
+            if ( scrolled > 100 && scrolled > scrollPrev ) {
+                if(scrollToDown == false) {
+                    scrollToTop = false;
+                    scrollDown = scrolled + settings.distance;
+                    scrollDownCheck = false;
+                }
+                scrollToDown = true;
+            } else {
+                if(scrollToTop == false) {
+                    scrollToDown = false;
+                    scrollTop = scrolled - settings.distance;
+                    scrollTopCheck = false;
+                }
+                scrollToTop = true;
+            }
+            scrollPrev = scrolled;
+            if(scrolled >= scrollDown && scrollDownCheck == false) {
+                if(settings.classCheck == undefined) {
+                    if(settings.fade == true) {
+                        $(header).fadeOut(settings.speedAnim);
+                    }
+                    else if(settings.fade == false) {
+                        $(header).slideUp(settings.speedAnim);
+                    }
+                }
+                else {
+                    $(header).addClass(settings.classCheck);
+                }
+                scrollDownCheck = true;
+            }
+            if(scrollTop >= scrolled && scrollTopCheck == false ) {
+                if(settings.classCheck == undefined) {
+                    if(settings.fade == true) {
+                        $(header).fadeIn(settings.speedAnim);
+                    }
+                    else if(settings.fade == false) {
+                        $(header).slideDown(settings.speedAnim);
+                    }
+                }
+                else {
+                    $(header).removeClass(settings.classCheck);
+                }
+                scrollTopCheck = true;
+            }
         });
+    }
+
+    headerHider({
+        elemName: $('.header__top'),
+        distance: 400,
+    });
     
 
     $('.inline-popups').magnificPopup({
